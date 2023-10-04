@@ -2,7 +2,9 @@
   "name": "@greet-hub/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "nx g @nx-dotnet/core:restore"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.2.0",
@@ -28,6 +30,8 @@
     "@angular/cli": "~16.2.0",
     "@angular/compiler-cli": "~16.2.0",
     "@angular/language-service": "~16.2.0",
+    "@nrwl/js": "16.9.1",
+    "@nx-dotnet/core": "^1.23.0",
     "@nx/eslint-plugin": "16.9.1",
     "@nx/jest": "16.9.1",
     "@nx/js": "16.9.1",
@@ -35,7 +39,7 @@
     "@nx/workspace": "16.9.1",
     "@schematics/angular": "~16.2.0",
     "@types/jest": "^29.4.0",
-    "@types/node": "16.11.7",
+    "@types/node": "18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "eslint": "~8.46.0",
