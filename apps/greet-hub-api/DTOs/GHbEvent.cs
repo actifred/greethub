@@ -7,7 +7,7 @@ namespace GreetHubApi.DTOs
     /// </summary>
     public class GHbEvent
     {
-        public string Id { get; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }

@@ -25,16 +25,16 @@ namespace GreetHubApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GHbEvent> Get()
+        public async Task<List<GHbEvent>> GetAsync()
         {
-            var events = _eventProviderService.Get();
+            var events = await _eventProviderService.GetAsync();
             return events;
         }
         
         [HttpPost]
-        public GHbEvent Add(GHbEvent ghbEvent)
+        public async Task<GHbEvent> Post([FromBody]GHbEvent ghbEvent)
         {
-            return _eventProviderService.Add(ghbEvent);
+            return await _eventProviderService.Add(ghbEvent);
         }
     }
 }
