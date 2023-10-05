@@ -15,6 +15,12 @@ export class GreetHubDataService {
     this.refreshEvents();
   }
 
+  add(event: GreetHubEvent) {
+    this._apiService.add(event).subscribe(() => {
+      this.refreshEvents();
+    })
+  }
+
   refreshEvents() {
     this._apiService.get().subscribe(events => {
       this._events$.next(events);

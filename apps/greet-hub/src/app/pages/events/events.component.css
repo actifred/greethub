@@ -1,0 +1,14 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 16px;
+}
+
+.add-button {
+  margin: 0 8px;
+}
+
+th {
+    font-weight: 700;
+}
