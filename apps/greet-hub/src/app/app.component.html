@@ -1,1 +1,19 @@
-<greet-hub-nx-welcome></greet-hub-nx-welcome> <router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <a routerLink="/">
+    <button mat-flat-button color="primary" class="greet-icon" aria-label="Accueil">
+      <mat-icon>event</mat-icon>  
+      <span>GreetHub</span>
+    </button>
+  </a>
+  <a routerLink="events">
+    <button mat-flat-button color="primary" class="greet-icon" aria-label="Events">
+      <span>Evènements</span>
+    </button>
+  </a>
+    <span class="greet-spacer"></span>
+    <button mat-icon-button class="greet-icon" aria-label="Icon button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
