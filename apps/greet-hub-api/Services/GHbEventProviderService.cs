@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GreetHubApi.DTOs;
 using GreetHubApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GreetHubApi.Services
 {
@@ -13,10 +14,15 @@ namespace GreetHubApi.Services
     }
     public class GHbEventProviderService : IGHbEventProviderService
     {
+        private readonly ILogger<GHbEventProviderService> _logger;
+
         private readonly IMongoDBService _mongoDBService;
 
-        public GHbEventProviderService(IMongoDBService mongoDBService)
+        public GHbEventProviderService(
+            ILogger<GHbEventProviderService> logger,
+            IMongoDBService mongoDBService)
         {
+            _logger = logger;
             _mongoDBService = mongoDBService;
         }
 
@@ -30,6 +36,11 @@ namespace GreetHubApi.Services
         public async Task<GHbEvent> Add(GHbEvent ghbEvent) {
             // For this first version, every event is approved automatically
             var model = _toModel(ghbEvent, false, true);
+            // Trim the title in case someone attemps to bypass the limitation
+            if (model.Title.Length > 32) {
+                _logger.LogWarning("Title is too long, this could be an attacker trying to bypass the limitation");
+                model.Title = model.Title.Substring(0, 32);
+            }
             var newModel = await _mongoDBService.CreateAsync(model);
             var dto = _toDTO(newModel);
             return dto;
