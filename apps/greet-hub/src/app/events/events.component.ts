@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GreetHubDataService } from '../services/greet-hub-data.service';
 
 @Component({
   selector: 'greet-hub-events',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent {
+
+  constructor(private _dataService: GreetHubDataService) {}
 
 }

@@ -28,6 +28,8 @@ namespace GreetHubApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.Configure<MongoDBSettings>(Configuration.GetSection("MongoDB"));
             services.AddSingleton<IMongoDBService, MongoDBService>();
             services.AddSingleton<IGHbEventProviderService, GHbEventProviderService>();
@@ -44,10 +46,13 @@ namespace GreetHubApi
         {
             if (env.IsDevelopment())
             {
+                app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreetHubApi v1"));
             }
+
 
             app.UseHttpsRedirection();
 
