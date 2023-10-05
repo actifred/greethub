@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { GreetHubEvent } from '../models/greet-hub-event';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment as env } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GreetHubApiService {
 
-  private _baseUrl = 'https://localhost:5001/event';
+  private _baseUrl = env.apiUrl + '/event';
 
   constructor(private readonly _http: HttpClient) { }
 
