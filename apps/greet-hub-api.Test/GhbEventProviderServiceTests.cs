@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GreetHubApi.DTOs;
 using GreetHubApi.Models;
 using GreetHubApi.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -18,7 +20,8 @@ public class GHbEventProviderServiceTests
         };
         var mongoDBServiceMock = new Mock<IMongoDBService>();
         mongoDBServiceMock.Setup(service => service.GetAsync()).ReturnsAsync(expectedEvents);
-        var service = new GHbEventProviderService(mongoDBServiceMock.Object);
+        var loggerMock = new Mock<ILogger<GHbEventProviderService>>();
+        var service = new GHbEventProviderService(loggerMock.Object, mongoDBServiceMock.Object);
 
         // Act
         var result = await service.GetAsync();
@@ -44,7 +47,8 @@ public class GHbEventProviderServiceTests
         var expectedEvent = new GHbEventModel { Id = "first_event_id", Title = "Event 1", Description = "desc1", LocalTimeZoneId = "tz1", Location = "loc1", UtcStartTime = now, UtcEndTime = now.AddHours(1) };
         var mongoDBServiceMock = new Mock<IMongoDBService>();
         mongoDBServiceMock.Setup(service => service.CreateAsync(It.IsAny<GHbEventModel>())).ReturnsAsync(expectedEvent);
-        var service = new GHbEventProviderService(mongoDBServiceMock.Object);
+        var loggerMock = new Mock<ILogger<GHbEventProviderService>>();
+        var service = new GHbEventProviderService(loggerMock.Object, mongoDBServiceMock.Object);
 
         // Act
         var result = await service.Add(inputEvent);
@@ -57,5 +61,30 @@ public class GHbEventProviderServiceTests
         Assert.Equal(expectedEvent.Location, result.Location);
         Assert.Equal(expectedEvent.UtcStartTime, result.UtcStartTime);
         Assert.Equal(expectedEvent.UtcEndTime, result.UtcEndTime);
+    }
+
+    [Fact]
+    public async Task CreateAsync_ShouldWarnAboutLongTitles()
+    {
+        // Arrange
+        var now = System.DateTime.Now;
+        var inputEvent = new GHbEvent { Title = "This is a very long title that exceeds 32 characters", Description = "desc1", LocalTimeZoneId = "tz1", Location = "loc1", UtcStartTime = now, UtcEndTime = now.AddHours(1) }; ;
+        var expectedEvent = new GHbEventModel { Id = "first_event_id", Title = "This is a very long title that ex", Description = "desc1", LocalTimeZoneId = "tz1", Location = "loc1", UtcStartTime = now, UtcEndTime = now.AddHours(1) };
+        var mongoDBServiceMock = new Mock<IMongoDBService>();
+        mongoDBServiceMock.Setup(service => service.CreateAsync(It.IsAny<GHbEventModel>())).ReturnsAsync(expectedEvent);
+        var loggerMock = new Mock<ILogger<GHbEventProviderService>>();
+        var service = new GHbEventProviderService(loggerMock.Object, mongoDBServiceMock.Object);
+
+        // Act
+        var result = await service.Add(inputEvent);
+
+        // Assert
+        loggerMock.Verify(logger => logger.Log(
+            It.Is<LogLevel>(logLevel => logLevel == LogLevel.Warning),
+            It.Is<EventId>(eventId => eventId.Id == 0),
+            It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "Title is too long, this could be an attacker trying to bypass the limitation" && @type.Name == "FormattedLogValues"),
+            It.IsAny<Exception>(),
+            It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+            Times.Once);
     }
 }
