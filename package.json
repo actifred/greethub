@@ -5,7 +5,8 @@
   "scripts": {
     "prepare": "nx g @nx-dotnet/core:restore",
     "serve:front": "nx serve greet-hub",
-    "serve:api": "nx serve greet-hub-api"
+    "serve:api": "nx serve greet-hub-api",
+    "test:front": "nx test greet-hub"
   },
   "private": true,
   "dependencies": {
