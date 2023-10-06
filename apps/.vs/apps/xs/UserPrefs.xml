@@ -1,0 +1,39 @@
+﻿<Properties StartupConfiguration="{F9BB43C3-B866-4BF2-9D37-8681927016B6}|Default">
+  <MonoDevelop.Ide.ItemProperties.GreetHubApi.Test PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="greet-hub-api.Test/GhbEventProviderServiceTests.cs">
+    <Files>
+      <File FileName="greet-hub-api.Test/GhbEventProviderServiceTests.cs" Line="81" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="apps" expanded="True">
+            <Node name="GreetHubApi.Test" expanded="True">
+              <Node name="GhbEventProviderServiceTests.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="apps" expanded="True">
+            <Node name="GreetHubApi.Test" expanded="True">
+              <Node name="GHbEventControllerTests" expanded="True" />
+              <Node name="GHbEventProviderServiceTests" expanded="True">
+                <Node name="CreateAsync_ShouldTruncateLongTitles" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/fred/greet-hub/apps/greet-hub-api.Test/GhbEventProviderServiceTests.cs" relfile="greet-hub-api.Test/GhbEventProviderServiceTests.cs" line="69" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

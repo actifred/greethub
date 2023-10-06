@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GreetHubDataService } from '../../services/greet-hub-data.service';
-import { GreetHubEvent, TableGreetHubEvent } from '../../models/greet-hub-event';
+import { TableGreetHubEvent } from '../../models/greet-hub-event';
 import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EventFormContainerComponent } from '../event-form-container/event-form-container.component';

@@ -18,4 +18,9 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain title', () => {
+    const titleElement = fixture.nativeElement.querySelector('.title');
+    expect(titleElement.textContent).toContain(component.title);
+  });
 });

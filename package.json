@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "nx g @nx-dotnet/core:restore"
+    "prepare": "nx g @nx-dotnet/core:restore",
+    "serve:front": "nx serve greet-hub",
+    "serve:api": "nx serve greet-hub-api"
   },
   "private": true,
   "dependencies": {
